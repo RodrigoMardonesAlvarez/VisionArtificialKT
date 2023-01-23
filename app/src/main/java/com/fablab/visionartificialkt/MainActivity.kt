@@ -114,7 +114,6 @@ class MainActivity : AppCompatActivity() {
 
             it.isEnabled = true
 
-
         }
     }
 
@@ -124,10 +123,8 @@ class MainActivity : AppCompatActivity() {
             shutdown()
             awaitTermination(1000,TimeUnit.MILLISECONDS)
         }
-
         tflite.close()
         nnApiDelegate.close()
-
         super.onDestroy()
     }
 
@@ -310,7 +307,5 @@ class MainActivity : AppCompatActivity() {
     private fun hasPermissions(context: Context) = permissions.all {
         ContextCompat.checkSelfPermission(context, it) == PackageManager.PERMISSION_GRANTED
     }
-
-
 
 }
