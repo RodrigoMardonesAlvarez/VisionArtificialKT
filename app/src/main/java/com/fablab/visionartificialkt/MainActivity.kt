@@ -132,7 +132,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     @SuppressLint("UnsafeExperimentalUsageError")
-    private fun bindCameraUseCases() = activityCameraBinding.viewFinder.post {
+    private fun bindCameraUseCases() = activityMainBinding.viewFinder.post {
 
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
         cameraProviderFuture.addListener ({
@@ -143,13 +143,13 @@ class MainActivity : AppCompatActivity() {
             // Set up the view finder use case to display camera preview
             val preview = Preview.Builder()
                 .setTargetAspectRatio(AspectRatio.RATIO_4_3)
-                .setTargetRotation(activityCameraBinding.viewFinder.display.rotation)
+                .setTargetRotation(activityMainBinding.viewFinder.display.rotation)
                 .build()
 
             // Set up the image analysis use case which will process frames in real time
             val imageAnalysis = ImageAnalysis.Builder()
                 .setTargetAspectRatio(AspectRatio.RATIO_4_3)
-                .setTargetRotation(activityCameraBinding.viewFinder.display.rotation)
+                .setTargetRotation(activityMainBinding.viewFinder.display.rotation)
                 .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                 .setOutputImageFormat(ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888)
                 .build()
@@ -161,7 +161,7 @@ class MainActivity : AppCompatActivity() {
                 if (!::bitmapBuffer.isInitialized) {
                     // The image rotation and RGB image buffer are initialized only once
                     // the analyzer has started running
-                    imageRotationDegrees = image.imageInfo.rotationDegrees
+                    imageRotationDegreesValue = image.imageInfo.rotationDegrees
                     bitmapBuffer = Bitmap.createBitmap(
                         image.width, image.height, Bitmap.Config.ARGB_8888)
                 }
